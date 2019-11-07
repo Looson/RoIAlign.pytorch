@@ -17,8 +17,7 @@ class CropAndResizeFunction(Function):
         ctx.crop_height = crop_height
         ctx.crop_width = crop_width
         ctx.extrapolation_value = extrapolation_value
-        crops = torch.zeros_like(image)
-
+        crops = torch.zeros([box_ind.shape[0], image.shape[-3], crop_height, crop_width], device=image.device)
         if image.is_cuda:
             crop_and_resize_gpu.forward(
                 image, boxes, box_ind,
